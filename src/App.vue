@@ -1,14 +1,24 @@
 <template>
   <div id="app">
-    hello world
+    <MHeader></MHeader>
+    <Tab></Tab>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import MHeader from './components/m-header/m-header'
+import Tab from './components/tab/tab.vue'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MHeader,
+    Tab
+  }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus" scoped rel="stylesheet/stylus">
+
 </style>
