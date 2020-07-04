@@ -3,6 +3,12 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+// 解决路由访问重复时报错问题：
+const originalPush = Router.prototype.push
+Router.prototype.push = function replace(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 export default new Router({
   routes: [
     {
@@ -17,7 +23,13 @@ export default new Router({
     {
       path: '/singer',
       name: 'singer',
-      component: () => import('../components/singer/singer.vue')
+      component: () => import('../components/singer/singer.vue'),
+      children: [
+        {
+          path: ':id',
+          component: () => import('../components/singer-detail/singer-detail')
+        }
+      ]
     },
     {
       path: '/recommend',

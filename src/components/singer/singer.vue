@@ -1,6 +1,8 @@
 <template>
     <div class="singer">
-        <ListView :data="singers"></ListView>
+        <ListView @select="selectSinger" :data="singers" ></ListView>
+        <!-- 承载子路由 :id  singer-detail 歌手详情页-->
+        <router-view></router-view>
     </div>
 </template>
 
@@ -9,6 +11,7 @@ import { getSingerList } from '../../api/singer'
 import { ERR_OK } from '../../api/config'
 import Singer from '../../common/js/singer'
 import ListView from '../../base/listview/listview'
+import { mapMutations } from 'vuex'
 
 const HOT_NAME = '热门'
 const HOT_SINGER_LEN = 10
@@ -27,6 +30,13 @@ export default {
     this._getSingerList()
   },
   methods: {
+    //  选择歌手列表中的歌手
+    selectSinger (singer) {
+      this.$router.push({
+        path: `/singer/${singer.id}`
+      })
+      this.setSinger(singer)
+    },
     // 获取歌手列表数据
     _getSingerList() {
       getSingerList().then((res) => {
@@ -92,7 +102,11 @@ export default {
         return a.title.charCodeAt(0) - b.title.charCodeAt(0)
       })
       return hot.concat(ret)
-    }
+    },
+    // 对 Mutations 的一层包装，是语法糖，提交 Mutations 中的方法同步修改 state 中的数据
+    ...mapMutations({
+      setSinger: 'SET_SINGER'
+    })
   }
 }
 </script>

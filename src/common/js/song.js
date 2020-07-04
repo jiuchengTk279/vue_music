@@ -25,6 +25,7 @@ export default class Song {
           this.lyric = Base64.decode(res.lyric)
           resolve(this.lyric)
         } else {
+          // eslint-disable-next-line prefer-promise-reject-errors
           reject('no lyric')
         }
       })
@@ -55,4 +56,3 @@ function filterSinger(singer) {
   })
   return ret.join('/')
 }
-
