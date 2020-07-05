@@ -9,7 +9,7 @@ import { mapGetters } from 'vuex'
 import { getSingerDetail } from '../../api/singer'
 import { ERR_OK } from '../../api/config'
 // eslint-disable-next-line standard/object-curly-even-spacing
-// import { createSong } from '../../common/js/song'
+// import createSong from '../../common/js/song'
 import MusicList from '../music-list/music-list'
 
 export default {
